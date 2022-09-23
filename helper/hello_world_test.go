@@ -1,6 +1,9 @@
 package helper
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 // go test
 // go test -v
@@ -10,14 +13,20 @@ func TestHelloWorld(t *testing.T) {
 	result := HelloWorld("Eko")
 	if result != "Hello Eko" {
 		// unit test failed
-		panic("Result isnt hello Eko")
+		//panic("Result isnt hello Eko")
+		//t.Fail()
+		t.Error("Harusnya Hello Eko")
 	}
+	fmt.Println("Done 1")
 }
 
 func TestHelloWorldRaka(t *testing.T) {
 	result := HelloWorld("Raka")
 	if result != "Hello Raka" {
 		// unit test failed
-		panic("Result isnt hello Raka")
+		//panic("Result isnt hello Raka")
+		//t.FailNow()
+		t.Fatal("Harusnya Hello Raka")
 	}
+	fmt.Println("Done 2")
 }
