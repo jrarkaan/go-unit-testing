@@ -96,3 +96,17 @@ func TestTableHelloWorld(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkHelloWorld(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("Raka")
+	}
+}
+
+func BenchmarkSubHelloWorld(b *testing.B) {
+	b.Run("Raka", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Raka")
+		}
+	})
+}
