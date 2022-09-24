@@ -12,6 +12,13 @@ import (
 // go test -v
 // go test -v -run [name_func]
 
+func TestMain(m *testing.M) {
+	// before
+	fmt.Println("BEFORE UNIT TEST")
+	m.Run()
+	fmt.Println("AFTER UNIT TEST")
+}
+
 func TestHelloWorld(t *testing.T) {
 	result := HelloWorld("Eko")
 	if result != "Hello Eko" {
@@ -52,4 +59,40 @@ func TestSkip(t *testing.T) {
 		t.Skip("g bsa jalan di mac")
 	}
 	require.Equal(t, "Hello Eko", result, "Result must be 'Hello Eko'")
+}
+
+func TestSubTest(t *testing.T) {
+	t.Run("Eko", func(t *testing.T) {
+		result := HelloWorld("Eko")
+		require.Equal(t, "Hello Eko", result)
+	})
+	t.Run("Raka", func(t *testing.T) {
+		result := HelloWorld("Raka")
+		require.Equal(t, "Hello Raka", result)
+	})
+}
+
+func TestTableHelloWorld(t *testing.T) {
+	tests := []struct {
+		name     string
+		request  string
+		expected string
+	}{
+		{
+			name:     "Raka",
+			request:  "Raka",
+			expected: "Hello Raka",
+		},
+		{
+			name:     "Eko",
+			request:  "Eko",
+			expected: "Hello Eko",
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := HelloWorld(test.request)
+			require.Equal(t, test.expected, result)
+		})
+	}
 }
